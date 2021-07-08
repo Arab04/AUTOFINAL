@@ -138,25 +138,43 @@ public class UserService {
         return resUser;
     }
 
-    public ApiResponse saveFirebase(User user, String firebase) {
-        try {
+//    public ApiResponse saveFirebase(User user, String firebase) {
+//        try {
+//
+//            System.out.println(firebase);
+//            FirebaseToken firebaseToken = firebaseRepository.save(new FirebaseToken(firebase));
+//            List<FirebaseToken> firebaseToken1 = user.getFirebaseToken();
+//            firebaseToken1.add(firebaseToken);
+//            user.setFirebaseToken(firebaseToken1);
+//            userRepository.save(user);
+//            for (ServiceEntityProvider companies : serviceRepository.findByUser(user)) {
+//                companies.setTokenList(firebaseToken1);
+//                serviceRepository.save(companies);
+//            }
+//
+//            return new ApiResponse("save",true);
+//        }catch (Exception e){
+//            return new ApiResponse(e.getMessage(), true);
+//
+//        }
+//
+//    }
 
-            System.out.println(firebase);
-            FirebaseToken firebaseToken = firebaseRepository.save(new FirebaseToken(firebase));
-            List<FirebaseToken> firebaseToken1 = user.getFirebaseToken();
-            firebaseToken1.add(firebaseToken);
-            user.setFirebaseToken(firebaseToken1);
-            userRepository.save(user);
-            for (ServiceEntityProvider companies : serviceRepository.findByUser(user)) {
-                companies.setTokenList(firebaseToken1);
-                serviceRepository.save(companies);
-            }
+    public ApiResponse saveServiceToken(ServiceEntityProvider entityProvider, String firebase) {
+        FirebaseToken firebaseToken = firebaseRepository.save(new FirebaseToken(firebase));
+        List<FirebaseToken> firebaseToken1 = entityProvider.getFirebaseToken();
+        firebaseToken1.add(firebaseToken);
+        entityProvider.setFirebaseToken(firebaseToken1);
+        serviceRepository.save(entityProvider);
+        return new ApiResponse("Token Saved",true);
+    }
 
-            return new ApiResponse("save",true);
-        }catch (Exception e){
-            return new ApiResponse(e.getMessage(), true);
-
-        }
-
+    public ApiResponse saveUserToken(User user, String firebase) {
+        FirebaseToken firebaseToken = firebaseRepository.save(new FirebaseToken(firebase));
+        List<FirebaseToken> firebaseToken1 = user.getFirebaseToken();
+        firebaseToken1.add(firebaseToken);
+        user.setFirebaseToken(firebaseToken1);
+        userRepository.save(user);
+        return new ApiResponse("Token Saved",true);
     }
 }

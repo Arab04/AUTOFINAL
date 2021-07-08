@@ -60,7 +60,7 @@ public class AuthService implements UserDetailsService {
             return userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User id not found: " + userId));
         }
         else {
-            return repository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User id not found: " + userId));
+            return repository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("Service id not found: " + userId));
         }
     }
 

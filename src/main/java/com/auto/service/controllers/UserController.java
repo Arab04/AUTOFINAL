@@ -1,5 +1,6 @@
 package com.auto.service.controllers;
 
+import com.auto.service.entity.ServiceEntityProvider;
 import com.auto.service.entity.User;
 import com.auto.service.payloads.ApiResponse;
 import com.auto.service.payloads.ApiResponseModel;
@@ -61,13 +62,20 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponse("Deleted", true));
     }
 
-    @PostMapping("firebase/{firebase}")
-    public ApiResponse saveFirebase(@CurrentUser User user, @PathVariable String firebase) {
-       return userService.saveFirebase(user,firebase);
+//    @PostMapping("firebase/{firebase}")
+//    public ApiResponse saveFirebase(@CurrentUser User user, @PathVariable String firebase) {
+//       return userService.saveFirebase(user,firebase);
+//    }
+
+    @PostMapping("user/firebase/{firebase}")
+    public ApiResponse saveUserToken(@CurrentUser User user, @PathVariable String firebase) {
+        return userService.saveUserToken(user,firebase);
     }
 
-
-
+    @PostMapping("service/firebase/{firebase}")
+    public ApiResponse saveServiceToken(@CurrentUser ServiceEntityProvider entityProvider, @PathVariable String firebase) {
+        return userService.saveServiceToken(entityProvider,firebase);
+    }
 
 //    @PutMapping("/edit")
 //    public HttpEntity<?> editUser(@RequestBody ReqUser reqUser, @CurrentUser User user) {

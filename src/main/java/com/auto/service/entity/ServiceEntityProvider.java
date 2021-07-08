@@ -24,28 +24,21 @@ public class ServiceEntityProvider implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String name;
-
-    private String serviceType;
-
-    private String number;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    private Float lat;
-
-    private Float lan;
-
     @Column(unique = true, nullable = false)
     private String phoneNumber;
 
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private String firstName;
 
-    private String verificationCode;
+
+    private String serviceType;
+
+    private Float lat;
+
+    private Float lan;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -59,6 +52,16 @@ public class ServiceEntityProvider implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<ServiceEntityProvider> serviceList;
+
+    @JsonIgnore
+    @ManyToOne
+    private User user;
+
+    @OneToMany
+    private List<FirebaseToken> tokenList;
+
+    @OneToMany
+    private List<FeedBack> comments;
 
 
     private boolean accountNonExpired = true;
@@ -104,25 +107,10 @@ public class ServiceEntityProvider implements UserDetails {
         return this.enabled;
     }
 
-
-
-
-
-
-
-    @JsonIgnore
-    @ManyToOne
-    private User user;
-
-    @OneToMany
-    private List<FirebaseToken> tokenList;
-
-    @OneToMany
-    private List<FeedBack> comments;
-
     public AvtoServiceStatusEnum getStatusEnum()
     {
         return AvtoServiceStatusEnum.getFromStringValue(serviceType);
     }
 
 }
+

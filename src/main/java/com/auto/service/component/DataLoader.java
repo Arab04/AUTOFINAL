@@ -45,6 +45,7 @@ public class DataLoader implements CommandLineRunner {
                 roleRepository.save(new Role(4, RoleName.ROLE_DIRECTOR));
                 roleRepository.save(new Role(5, RoleName.ROLE_EMPLOYER));
                 roleRepository.save(new Role(6,RoleName.USER_NOT_ACTIVE));
+                roleRepository.save(new Role(7,RoleName.SERVICE_ITEM));
             }
             if (initialMode) {
                 userRepository.save(new User(

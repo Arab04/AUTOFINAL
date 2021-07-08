@@ -14,5 +14,6 @@ public interface ServiceEntityRepository extends JpaRepository<ServiceEntityProv
 
     List<ServiceEntityProvider> findByUser(User user);
 
+
     Optional<ServiceEntityProvider> findByPhoneNumber(String phoneNumber);
 }

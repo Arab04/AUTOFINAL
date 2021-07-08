@@ -25,7 +25,7 @@ public class MessageSender implements Notification{
             bodyNode.setData(new Data(title, message));
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("Authorization", "key=AAAAClHADw0:APA91bFiYkpRhbXpoYlZsxHwDlKcPEFG3CI1w7BSkCZ9i-UQKFgmrguTcJtF6H9OwAmLHqrKygvEXVz4-p1A5eZtzBtHoVwRZPRc30fKJuUtp6pp0NJBDJ-HWEqhwViXjCcZ1POj-tk5");
+            headers.set("Authorization", "key=AAAAClHADw0:APA91bGGz7vBseKFtAX7gfHsoQ0RguaHfOSS7cYdMIZMFe97PxEKnVup0O6jAFV8RPsaIrpbw9Wz3tIMpykIkNVmh8NyZr8KUq1mwmbCkxW6_RKXpq4uJ13C_n92h-WAmoOAMuo7gsq0");
             String url = "https://fcm.googleapis.com/fcm/send";
             RestTemplate template = new RestTemplate();
             HttpEntity<NotificationTest> entity = new HttpEntity<>(bodyNode, headers);

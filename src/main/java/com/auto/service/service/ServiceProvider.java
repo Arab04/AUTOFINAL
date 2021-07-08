@@ -2,9 +2,10 @@ package com.auto.service.service;
 
 import com.auto.service.entity.ServiceEntityProvider;
 import com.auto.service.entity.User;
-import com.auto.service.entity.enums.Status;
+import com.auto.service.entity.enums.RoleName;
 import com.auto.service.payloads.ApiResponse;
 import com.auto.service.payloads.ServicePayload;
+import com.auto.service.repository.RoleRepository;
 import com.auto.service.repository.ServiceEntityRepository;
 import com.auto.service.repository.UserRepository;
 import lombok.NoArgsConstructor;
@@ -21,12 +22,14 @@ public class ServiceProvider {
     private ServiceEntityRepository serviceRepository;
     private UserRepository userRepository;
     private PasswordEncoder encoder;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public ServiceProvider(ServiceEntityRepository serviceRepository, UserRepository userRepository, PasswordEncoder encoder) {
+    public ServiceProvider(ServiceEntityRepository serviceRepository, UserRepository userRepository, PasswordEncoder encoder, RoleRepository roleRepository) {
         this.serviceRepository = serviceRepository;
         this.userRepository = userRepository;
         this.encoder = encoder;
+        this.roleRepository = roleRepository;
     }
 
 
@@ -36,9 +39,8 @@ public class ServiceProvider {
         service.setPhoneNumber(payload.getPhoneNumber());
         service.setPassword(encoder.encode(payload.getPassword()));
         service.setFirstName(payload.getName());
-        service.setNumber(payload.getNumber());
         service.setServiceType(payload.getServiceType());
-        service.setStatus(Status.ACTIVE);
+        service.setRoles(roleRepository.findAllByName(RoleName.SERVICE_ITEM));
         service.setLan(payload.getLan());
         service.setLat(payload.getLat());
         System.err.println(user.getId());

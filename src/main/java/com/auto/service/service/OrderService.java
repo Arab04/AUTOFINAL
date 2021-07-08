@@ -42,25 +42,21 @@ public class OrderService {
     }
 
     public boolean setOrder(OrderPayload order, User user) {
-//        Order order1 = new Order();
-//        order1.setOrderStatus(OrderStatus.ORDERED);
-//        order1.setDescription(order.getDesc());
-//        order1.setLat(order.getLat());
-//        order1.setLan(order.getLan());
-//        order1.setUser(user);
-//        order1.setServiceToken(order.getServiceLocation());
-//        userRepo.save(user);
-//        orderRepository.save(order1);
-//        setTemporaryOrder(order1);
-//        List<ServiceEntityProvider> company = serviceRepository.findAllById(Collections.singleton(order.getCompanyId()));
-//        for (ServiceEntityProvider oo: company) {
-//            List<FirebaseToken> tokens = oo.getTokenList();
-//            for (FirebaseToken token : tokens) {
-//                messageSender.notification(token.getFirebaseKey(), user.getPhoneNumber(), order.getDesc());
-//            }
-//
-//        }
-        return true;
+        Order order1 = new Order();
+        order1.setOrderStatus(OrderStatus.ORDERED);
+        order1.setDescription(order.getDesc());
+        order1.setLat(order.getLat());
+        order1.setLan(order.getLan());
+        order1.setUser(user);
+        order1.setServiceToken(order.getServiceLocation());
+        userRepo.save(user);
+        orderRepository.save(order1);
+
+        ServiceEntityProvider service = serviceRepository.getById(order.getCompanyId());
+            for (FirebaseToken token : service.getFirebaseToken()) {
+                messageSender.notification(token.getFirebaseKey(), user.getPhoneNumber(), order.getDesc());
+            }
+            return true;
     }
 
     public List<Order> getOrders(User user) {
